@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    // "declaration": true,
+    // "declarationDir": "@dts",
+    // "emitDeclarationOnly": true,
+    "noEmit": true
+  },
+  "exclude": [
+    "src/**/__test__/*",
+    "src/**/__mocks__/*",
+  ],
+}
