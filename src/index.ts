@@ -2,7 +2,7 @@ export { isTypedAction, isWrappedError } from './utils';
 
 export { typedActionMiddlewares } from './middlewares';
 
-export { DispatchTypedAction, StateGetter } from './types';
+export { DispatchTypedAction, StateGetter, ReducerTypedAction } from './types';
 
 export { TypedAsyncActionClassFactory } from './actions/AsyncActionClassFactory';
 
