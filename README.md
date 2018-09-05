@@ -11,7 +11,7 @@ export interface SimpleState {
 ```
 
 ## Create module with base actions:
-### `TypedAsyncActionClassFactory<S>` is needed to pass down `store shape` to all async actions 
+`TypedAsyncActionClassFactory<S>` is needed to pass down `store shape` to all async actions 
 ```ts
 // baseActions.ts
 import {
@@ -68,14 +68,14 @@ export class DAction extends ArrayAction<number> { }
 
 export class FAction extends TypedAction<SimpleState> { }
 ```
-### You can use predefined primitive actions or define your own, just extend `GenericPayloadAction<T>` class with a generic type, e.g:
+You can use predefined primitive actions or define your own, just extend `GenericPayloadAction<T>` class with a generic type, e.g:
 ```ts
 import { GenericPayloadAction } from "ts-typed-redux-actions";
 
 type MyType = { prop1: string; prop2: number };
 export class YourAction extends GenericPayloadAction<MyType> { }
 ```
-### Note: `TypedAction<T>` class is a short version of `GenericPayloadAction<T>` class, so you are free to using him.
+Note: `TypedAction<T>` class is a short version of `GenericPayloadAction<T>` class, so you are free to using him.
 ## Let's describe our reducer logic
 ```ts
 // reducer.ts
@@ -119,7 +119,7 @@ export const reducer: Reducer<SimpleState> = (
   return state;
 }
 ```
-###  This library brings an ability to test actions in OOP way, instead of string comparison `action.type === 'SOME_ACTION'` 
+This library brings an ability to test actions in OOP way, instead of string comparison `action.type === 'SOME_ACTION'` 
 
 ## And finally, create redux store
 ```ts
@@ -134,8 +134,8 @@ export const store = createStore(
 );
 ```
 ## Tips
-### How about server requests? Yeah, sure. For this case we took [axios](https://www.npmjs.com/package/axios) library, but you can use another libraries like [fetch](https://github.github.io/fetch/) polyfill or `XMLHttpRequest`.
-### The following approach allows you, for example, change baseUrl server in runtime if they stored in redux store, pass authentication token to server from store.
+How about server requests? Yeah, sure. For this case we took [axios](https://www.npmjs.com/package/axios) library, but you can use another libraries like [fetch](https://github.github.io/fetch/) polyfill or `XMLHttpRequest`.
+The following approach allows you, for example, change baseUrl server in runtime if they stored in redux store, pass authentication token to server from store.
 ```ts
 // actions.ts
 import { isWrappedError } from "ts-typed-redux-actions";
