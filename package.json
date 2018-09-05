@@ -2,39 +2,27 @@
   "name": "ts-typed-redux-actions",
   "version": "0.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
+    "prebuild": "rm -rf dist",
     "build": "tsc",
-    "test": "jest"
+    "postbuild": "npm run test:dist",
+    "test": "jest --env=node",
+    "test:dist": "jest --env=node --config=jest.config.dist.js"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^23.3.1",
+    "@types/node": "^10.9.4",
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-preset-env": "^1.7.0",
     "jest": "^23.5.0",
     "redux": "^4.0.0",
+    "regenerator-runtime": "^0.12.1",
     "ts-jest": "^23.1.4"
-  },
-  "jest": {
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__test__/.*|(\\.|/)(test|spec))\\.tsx?$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": "tsconfig.test.json"
-      }
-    }
   }
 }

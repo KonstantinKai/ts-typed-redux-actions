@@ -3,7 +3,7 @@ import { DispatchTypedAction, StateGetter } from "../types";
 import { SimpleAsyncActionPayload } from "./SimpleAsyncAction";
 
 type TimeoutAsyncActionReturn = () => void;
-interface TimeoutAsyncActionPayload<S> extends SimpleAsyncActionPayload<S, any> {
+export interface TimeoutAsyncActionPayload<S> extends SimpleAsyncActionPayload<S, any> {
   timeout: number;
 }
 export const getTimeoutAsyncActionClass = () => class TSuperClass<S> extends AsyncAction<TimeoutAsyncActionPayload<S>, S> {

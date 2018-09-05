@@ -1,13 +1,15 @@
 {
   "extends": "./tsconfig.base",
   "compilerOptions": {
-    // "declaration": true,
-    // "declarationDir": "@dts",
-    // "emitDeclarationOnly": true,
-    "noEmit": true
+    "declaration": true,
+    "outDir": "./dist",
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
-    "src/**/__test__/*",
-    "src/**/__mocks__/*",
+    // "src/**/__test__/*",
+    // "src/**/__mocks__/*",
+    "example/**/*"
   ],
 }

@@ -2,3 +2,5 @@ example
 .vscode
 __mocks__
 __test__
+node_modules
+src

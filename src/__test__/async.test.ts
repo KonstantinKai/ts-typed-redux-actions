@@ -1,6 +1,9 @@
 import { create, SimpleAsyncAction, ParallelTasksAsyncAction, SeriesTasksAsyncAction, TimeoutAsyncAction } from "../__mocks__/reduxStore";
-import { AAction, BAction, CAction, DAction } from "../__mocks__/actions";
-import { isTypedAction } from "../utils";
+import { AAction, BAction, CAction, DAction, ServerAsyncAction } from "../__mocks__/actions";
+import { isTypedAction, isWrappedError } from "../utils";
+import axios from 'axios';
+
+const http = require('axios/lib/adapters/http');
 
 let ctx: any = {};
 
@@ -304,5 +307,55 @@ describe("Async actions", () => {
     }).then((state) => {
       expect(getState()).toHaveProperty('b', 1);
     })
+  });
+
+  test("Test 13", async () => {
+    const { dispatch, getState } = ctx.store;
+    dispatch(new DAction([]));
+
+    expect(getState()).toHaveProperty('d', []);
+
+    axios.defaults.adapter = http as any;
+
+    const res = await dispatch(new ServerAsyncAction({
+      requestConfig: {
+        baseURL: 'https://dog.ceo',
+        url: '/api/breeds/image/random',
+      },
+      onStart: (getState) => {
+        expect(getState()).toHaveProperty('d', []);
+
+        return new DAction([1]);
+      },
+      onComplete: (result, dispatch, getState) => {
+        expect(getState()).toHaveProperty('d', [1]);
+
+        dispatch(new DAction([2]));
+
+        expect(getState()).toHaveProperty('d', [2]);
+
+        return result.data;
+      },
+      onError: (error, dispatch, getState) => {
+        expect(isWrappedError(error)).toBeTruthy();
+      }
+    }));
+
+    expect(res).toHaveProperty('status', 'success');
+    expect(res).toHaveProperty('message');
+  });
+
+  test("Test 14", async () => {
+    const { dispatch, getState } = ctx.store;
+
+    const res = await dispatch(new ServerAsyncAction({
+      requestConfig: {
+        baseURL: '/',
+        url: '/',
+      },
+      onError: (error, dispatch, getState) => {
+        expect(isWrappedError(error)).toBeTruthy();
+      }
+    }));
   });
 });
