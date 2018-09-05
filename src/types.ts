@@ -1,4 +1,7 @@
-import { BaseTypedAction } from "./actions/BaseTypedAction";
+import { BaseTypedAction, ReducerActionArg } from "./actions/BaseTypedAction";
+import { Reducer } from 'redux';
+
+export type ReducerTypedAction<S> = Reducer<S, ReducerActionArg>;
 
 export type StateGetter<S> = () => S;
 

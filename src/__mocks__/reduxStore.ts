@@ -1,7 +1,8 @@
-import { createStore, Reducer, applyMiddleware } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { typedActionMiddlewares } from "../middlewares";
 import { TypedAsyncActionClassFactory } from "../actions/AsyncActionClassFactory";
 import { AAction, BAction, CAction, DAction, FAction } from "./actions";
+import { ReducerTypedAction } from "../types";
 
 export interface SimpleState {
   a: string;
@@ -17,7 +18,7 @@ const initialState: SimpleState = {
   d: [1, 2, 3]
 };
 
-const reducer: Reducer<SimpleState> = (
+const reducer: ReducerTypedAction<SimpleState> = (
   state = initialState,
   { typedAction }
 ) => {
