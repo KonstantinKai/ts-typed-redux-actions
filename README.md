@@ -141,12 +141,13 @@ The following approach allows you, for example, change baseUrl server in runtime
 import { isWrappedError } from "ts-typed-redux-actions";
 import { SimpleAsyncAction, EmptyAction } from "./baseActions";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { WrappedError } from "../types";
 
 interface ServerAsyncActionPayload {
   requestConfig: AxiosRequestConfig;
   onStart?: (getState: StateGetter<SimpleState>) => (BaseTypedAction | false);
   onComplete?: (results: [any, AxiosResponse], dispatch: DispatchTypedAction, getState: StateGetter<SimpleState>) => any;
-  onError?: (error: any, dispatch: DispatchTypedAction, getState: StateGetter<SimpleState>) => any;
+  onError?: (error: WrappedError, dispatch: DispatchTypedAction, getState: StateGetter<SimpleState>) => any;
 }
 export class ServerAsyncAction extends AsyncAction<ServerAsyncActionPayload, SimpleState> {
   execute(dispatch: DispatchTypedAction, getState: StateGetter<SimpleState>) {

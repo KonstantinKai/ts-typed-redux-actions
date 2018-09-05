@@ -1,6 +1,6 @@
 import { GenericPayloadAction } from "../actions/GenericPayloadAction";
 import { SimpleState, SeriesTasksAsyncAction, SimpleAsyncAction } from "./reduxStore";
-import { StateGetter, DispatchTypedAction } from "../types";
+import { StateGetter, DispatchTypedAction, WrappedError } from "../types";
 import { BaseTypedAction } from "../actions/BaseTypedAction";
 import { AsyncAction } from "../actions/AsyncAction";
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
@@ -21,7 +21,7 @@ interface ServerAsyncActionPayload {
   requestConfig: AxiosRequestConfig;
   onStart?: (getState: StateGetter<SimpleState>) => (BaseTypedAction | false);
   onComplete?: (result: AxiosResponse, dispatch: DispatchTypedAction, getState: StateGetter<SimpleState>) => any;
-  onError?: (error: any, dispatch: DispatchTypedAction, getState: StateGetter<SimpleState>) => any;
+  onError?: (error: WrappedError, dispatch: DispatchTypedAction, getState: StateGetter<SimpleState>) => any;
 }
 export class ServerAsyncAction extends AsyncAction<ServerAsyncActionPayload, SimpleState> {
   execute(dispatch: DispatchTypedAction, getState: StateGetter<SimpleState>) {
