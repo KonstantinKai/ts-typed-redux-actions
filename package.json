@@ -1,7 +1,7 @@
 {
   "name": "ts-typed-redux-actions",
   "version": "0.1.0",
-  "description": "",
+  "description": "Strong typed typescript redux actions",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -11,7 +11,7 @@
     "test": "jest --env=node",
     "test:dist": "jest --env=node --config=jest.config.dist.js"
   },
-  "author": "",
+  "author": "KonstantinKai",
   "license": "MIT",
   "dependencies": {
     "redux": "^4.0.0"
@@ -26,5 +26,22 @@
     "jest": "^23.5.0",
     "regenerator-runtime": "^0.12.1",
     "ts-jest": "^23.1.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KonstantinKai/ts-typed-redux-actions"
+  },
+  "bugs": {
+    "url": "https://github.com/KonstantinKai/ts-typed-redux-actions/issues"
+  },
+  "keywords": [
+    "typescript",
+    "redux",
+    "redux-middleware",
+    "redux-actions",
+    "strong-typed",
+    "redux-promise",
+    "redux-promise-middleware",
+    "async"
+  ]
 }
