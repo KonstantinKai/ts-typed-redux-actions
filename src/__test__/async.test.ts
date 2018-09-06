@@ -358,4 +358,60 @@ describe("Async actions", () => {
       }
     }));
   });
+
+  test("Test 15", async () => {
+    const { dispatch, getState } = ctx.store;
+
+    const res = await dispatch(new ParallelTasksAsyncAction({
+      tasks: [
+        () => undefined,
+        () => new AAction('test_15'),
+        (getState) => {
+          expect(getState()).toHaveProperty('a', 'test_15')
+
+          return 10;
+        }
+      ],
+      onComplete: ([f, s, t]) =>  {
+        expect(f).toBeUndefined();
+        expect(isTypedAction(s)).toBeTruthy();
+        expect(t).toEqual(10);
+      }
+    }));
+
+    expect(res[0]).toBeUndefined();
+    expect(isTypedAction(res[1])).toBeTruthy();
+    expect(res[2]).toEqual(10);
+  });
+
+  test("Test 16", async () => {
+    const { dispatch, getState } = ctx.store;
+
+    const res = await dispatch(new SeriesTasksAsyncAction({
+      tasks: [
+        () => undefined,
+        ([f]) => {
+          expect(f).toBeUndefined();
+
+          return new AAction('test_16');
+        },
+        (nn1, getState) => {
+          expect(getState()).toHaveProperty('a', 'test_16');
+
+          throw 'third_task_error';
+        }
+      ],
+      onComplete: ([f, s, t]) => {
+        expect(f).toBeUndefined();
+        expect(isTypedAction(s)).toBeTruthy();
+        expect(isWrappedError(t)).toBeTruthy();
+        expect(t).toHaveProperty('error', 'third_task_error');
+      }
+    }));
+
+    expect(res[0]).toBeUndefined();
+    expect(isTypedAction(res[1])).toBeTruthy();
+    expect(isWrappedError(res[2])).toBeTruthy();
+    expect(res[2]).toHaveProperty('error', 'third_task_error');
+  });
 });

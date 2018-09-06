@@ -1,3 +1,5 @@
+Library that helps you manage redux state with strongly typed actions and other cool stuff, like `async, series, parallel, timeout, etc.` actions. You don't need now a lot of redux middlewares...
+
 # How to use
 ## Describe your redux store shape
 ```ts

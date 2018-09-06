@@ -4,7 +4,7 @@ import { BaseTypedAction } from "./BaseTypedAction";
 import { wrapError } from "../utils";
 
 export interface ParallelTasksPayload<S, R> extends WithTasksAsyncPayload<S, R> {
-  tasks: Array<BaseTypedAction | { (getState: StateGetter<S>): BaseTypedAction | false }>;
+  tasks: Array<BaseTypedAction | { (getState: StateGetter<S>): BaseTypedAction | any }>;
 }
 
 export const getParallelTasksAsyncActionClass = () => class PTSuperClass<S, R> extends AsyncAction<ParallelTasksPayload<S, R>, S> {
@@ -16,17 +16,17 @@ export const getParallelTasksAsyncActionClass = () => class PTSuperClass<S, R> e
         if (typeof task === 'function') {
           try {
             taskResult = task(getState);
-
-            if (taskResult === false) {
-              return taskResult;
-            }
           } catch (error) {
             return wrapError(error);
           }
         }
 
+        const typedAction = taskResult === null ? task : taskResult;
+
         return Promise.resolve(
-          dispatch((taskResult === null ? task : taskResult) as BaseTypedAction)
+          typedAction instanceof BaseTypedAction ?
+            dispatch(typedAction as BaseTypedAction) :
+            typedAction
         ).catch((error) => wrapError(error));
       })
     );
