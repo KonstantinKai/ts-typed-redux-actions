@@ -1,6 +1,6 @@
 import { create, SimpleAsyncAction, ParallelTasksAsyncAction, SeriesTasksAsyncAction, TimeoutAsyncAction } from "../__mocks__/reduxStore";
 import { AAction, BAction, CAction, DAction, ServerAsyncAction } from "../__mocks__/actions";
-import { isTypedAction, isWrappedError } from "../utils";
+import { isTypedAction, isWrappedError, isTypedPlainAction } from "../utils";
 import axios from 'axios';
 
 const http = require('axios/lib/adapters/http');
@@ -50,7 +50,7 @@ describe("Async actions", () => {
         }
       ],
       onComplete([firstAction, secondValue], dispatch, getState) {
-        expect(isTypedAction(firstAction)).toBeTruthy();
+        expect(isTypedPlainAction(firstAction)).toBeTruthy();
         expect(secondValue).toEqual(2);
 
         dispatch(new BAction(secondValue));
@@ -98,7 +98,7 @@ describe("Async actions", () => {
       tasks: [
         new CAction(true),
         ([fa], getState) => {
-          expect(isTypedAction(fa)).toBeTruthy();
+          expect(isTypedPlainAction(fa)).toBeTruthy();
 
           expect(getState()).toHaveProperty('c', true);
 
@@ -374,13 +374,13 @@ describe("Async actions", () => {
       ],
       onComplete: ([f, s, t]) =>  {
         expect(f).toBeUndefined();
-        expect(isTypedAction(s)).toBeTruthy();
+        expect(isTypedPlainAction(s)).toBeTruthy();
         expect(t).toEqual(10);
       }
     }));
 
     expect(res[0]).toBeUndefined();
-    expect(isTypedAction(res[1])).toBeTruthy();
+    expect(isTypedPlainAction(res[1])).toBeTruthy();
     expect(res[2]).toEqual(10);
   });
 
@@ -403,14 +403,14 @@ describe("Async actions", () => {
       ],
       onComplete: ([f, s, t]) => {
         expect(f).toBeUndefined();
-        expect(isTypedAction(s)).toBeTruthy();
+        expect(isTypedPlainAction(s)).toBeTruthy();
         expect(isWrappedError(t)).toBeTruthy();
         expect(t).toHaveProperty('error', 'third_task_error');
       }
     }));
 
     expect(res[0]).toBeUndefined();
-    expect(isTypedAction(res[1])).toBeTruthy();
+    expect(isTypedPlainAction(res[1])).toBeTruthy();
     expect(isWrappedError(res[2])).toBeTruthy();
     expect(res[2]).toHaveProperty('error', 'third_task_error');
   });

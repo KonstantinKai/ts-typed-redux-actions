@@ -1,4 +1,4 @@
-export { isTypedAction, isWrappedError } from './utils';
+export { isTypedAction, isWrappedError, isTypedPlainAction } from './utils';
 
 export { typedActionMiddlewares, asyncTypedActionMiddleware, typedActionMiddleware } from './middlewares';
 

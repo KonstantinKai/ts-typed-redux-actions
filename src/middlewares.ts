@@ -1,4 +1,4 @@
-import { isTypedAction } from "./utils";
+import { isTypedAction, isTypedPlainAction } from "./utils";
 import { BaseTypedAction } from "./actions/BaseTypedAction";
 import { Middleware } from 'redux';
 import { AsyncAction } from "./actions/AsyncAction";
@@ -12,7 +12,7 @@ export const typedActionMiddleware: Middleware = () => (next) => (action) => {
 };
 
 export const asyncTypedActionMiddleware: Middleware = ({ dispatch, getState }) => (next) => (action) => {
-  if (isTypedAction(action)) {
+  if (isTypedPlainAction(action)) {
     const typedAction = action.typedAction;
 
     if (typedAction instanceof AsyncAction) {

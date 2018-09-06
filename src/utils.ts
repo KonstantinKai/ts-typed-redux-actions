@@ -1,10 +1,15 @@
-import { BaseTypedAction } from "./actions/BaseTypedAction";
+import { BaseTypedAction, ReducerActionArg } from "./actions/BaseTypedAction";
 import { WrappedError } from "./types";
 
-export const isTypedAction = (action: any) =>
+export const isTypedPlainAction = (action: any): action is ReducerActionArg =>
+  action !== null &&
   typeof action === 'object' &&
-  (action instanceof BaseTypedAction ||
-    'typedAction' in action && action.typedAction instanceof BaseTypedAction);
+  'typedAction' in action && action.typedAction instanceof BaseTypedAction;
+
+export const isTypedAction = (action: any): action is BaseTypedAction =>
+  action !== null &&
+  typeof action === 'object' &&
+  action instanceof BaseTypedAction;
 
 export const wrapError = (error: any): WrappedError => ({
   isError: true,

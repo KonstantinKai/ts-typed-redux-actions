@@ -1,6 +1,6 @@
 import { TypedAsyncActionClassFactory } from "../actions/AsyncActionClassFactory";
 import { BaseTypedAction } from "../actions/BaseTypedAction";
-import { isTypedAction, isWrappedError } from "../utils";
+import { isTypedAction, isWrappedError, isTypedPlainAction } from "../utils";
 
 interface State {
   a: string;
@@ -75,6 +75,17 @@ describe("Main", () => {
         return '';
       }
     });
+
+    const action3 = { type: '', typedAction: new BaseTypedAction() }
+    const action4 = new BaseTypedAction();
+
+    if (isTypedPlainAction(action3)) {
+      action3.typedAction;
+    }
+
+    if (isTypedAction(action4)) {
+      action4.toPlainObject;
+    }
   });
 
   describe("Utils", () => {
@@ -83,7 +94,7 @@ describe("Main", () => {
     });
 
     test("Test 2", () => {
-      expect(isTypedAction(new BaseTypedAction().toPlainObject())).toBeTruthy();
+      expect(isTypedPlainAction(new BaseTypedAction().toPlainObject())).toBeTruthy();
     });
 
     test("Test 3", () => {
