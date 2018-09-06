@@ -1,8 +1,8 @@
-import { Reducer } from "redux";
 import { SimpleState } from "./storeShape";
 import { AAction, BAction, CAction, DAction, FAction } from "./actions";
+import { ReducerTypedAction } from "ts-typed-redux-actions";
 
-export const reducer: Reducer<SimpleState> = (
+export const reducer: ReducerTypedAction<SimpleState> = (
   state = {
     a: '',
     b: 0,

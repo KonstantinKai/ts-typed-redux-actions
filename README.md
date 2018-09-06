@@ -79,11 +79,11 @@ Note: `TypedAction<T>` class is a short version of `GenericPayloadAction<T>` cla
 ## Let's describe our reducer logic
 ```ts
 // reducer.ts
-import { Reducer } from "redux";
+import { ReducerTypedAction } from "ts-typed-redux-actions";
 import { SimpleState } from "./storeShape";
 import { AAction, BAction, CAction, DAction, FAction } from "./actions";
 
-export const reducer: Reducer<SimpleState> = (
+export const reducer: ReducerTypedAction<SimpleState> = (
   state = {
     a: '',
     b: 0,
