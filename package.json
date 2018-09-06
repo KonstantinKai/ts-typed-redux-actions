@@ -1,6 +1,6 @@
 {
   "name": "ts-typed-redux-actions",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Strong typed typescript redux actions",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
